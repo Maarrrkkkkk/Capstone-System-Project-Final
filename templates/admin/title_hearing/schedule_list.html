@@ -1,0 +1,86 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Schedule for Title Hearing</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'admin/title_hearing/schedule_list.css' %}">
+    <style>
+        @media print {
+            .no-print {
+                display: none;
+            }
+        }
+        .table th, .table td {
+            width: 25%;
+        }
+    </style>
+    <script>
+        function printPage() {
+            window.print();
+        }
+    </script>
+</head>
+<body>
+    <center>
+        <h1>Schedule for Upcoming Title Hearing</h1>
+    </center>
+    <div class="buttons">
+        <form method="post">
+            {% csrf_token %}
+            {% if not grouped_schedules %}
+                <h3 class="no-print">Schedule for the Title Hearing is not yet set!!!</h3>
+                <button class="btn btn-primary no-print" type="submit" name="generate_schedule_view">Generate Schedule</button>
+            {% else %}
+                <button class="btn btn-primary no-print" type="submit" name="generate_again">Generate Again</button>
+            {% endif %}
+        </form>  
+        {% if grouped_schedules %}
+            <button class="btn btn-secondary no-print" onclick="printPage()">Print</button>
+        {% endif %}
+        <button class="btn btn-secondary no-print" onclick="window.location.href='{% url 'admin_dashboard' %}'">Back</button>
+    </div>
+    
+    {% for day_room, schedules in grouped_schedules.items %}
+    <br>
+    <h2 class="table-header">{{ day_room.0 }} - {{ day_room.1 }}</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Time</th>
+                <th>Section</th>
+                <th>Names</th>
+                <th>Panelist</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for schedule in schedules %}
+            {% if schedule.lunch_break %}
+            <tr style="text-align: center; background-color: #650000; color:white;">
+                <td colspan="4" class="text-center">12:00 - 1:00 LUNCH BREAK</td>
+            </tr>
+            {% else %}
+            <tr>
+                <td>{{ schedule.slot }}</td>
+                <td>{{ schedule.group.section }}</td>
+                <td>
+                    {{ schedule.group.member1 }}<br>
+                    {{ schedule.group.member2 }}<br>
+                    {{ schedule.group.member3 }}
+                </td>
+                <td>
+                    {{ schedule.faculty1.name }}<br>
+                    {{ schedule.faculty2.name }}<br>
+                    {{ schedule.faculty3.name }}
+                </td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endfor %}
+    <br><br>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Faculty List</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="{% static 'faculty_list.css' %}" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color:#fff;
+        }
+        thead {
+            background-color: #007bff;
+            color: black;
+            text-align: center;
+        }
+        .table {
+            background-color: #fff;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Faculty List</h1>
+        <div class="table-wrapper">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Faculty</th>
+                        <th>Years of Teaching</th>
+                        <th>Expertise</th>
+                        <th>Master Degree Holder</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for faculty in page_obj %}
+                        <tr>
+                            <td>{{ faculty.id }}</td>
+                            <td>{{ faculty.name }}</td>
+                            <td>{{ faculty.years_of_teaching }}</td>
+                            <td>
+                                <ul>
+                                    {% if faculty.mobile_web_dev %}<li>Mobile and Web Application Development</li>{% endif %}
+                                    {% if faculty.database_management %}<li>Database Management and Information Systems</li>{% endif %}
+                                    {% if faculty.ai_ml %}<li>Artificial Intelligence and Machine Learning</li>{% endif %}
+                                    {% if faculty.iot %}<li>Internet of Things (IoT)</li>{% endif %}
+                                    {% if faculty.cybersecurity %}<li>Cybersecurity</li>{% endif %}
+                                    {% if faculty.gis %}<li>Geographic Information Systems (GIS)</li>{% endif %}
+                                    {% if faculty.data_analytics %}<li>Data Analytics and Business Intelligence</li>{% endif %}
+                                    {% if faculty.ecommerce_digital_marketing %}<li>E-commerce and Digital Marketing</li>{% endif %}
+                                    {% if faculty.educational_technology %}<li>Educational Technology</li>{% endif %}
+                                    {% if faculty.healthcare_informatics %}<li>Healthcare Informatics</li>{% endif %}
+                                    {% if faculty.game_development %}<li>Game Development</li>{% endif %}
+                                    {% if faculty.hci %}<li>Human-Computer Interaction</li>{% endif %}
+                                    {% if faculty.agricultural_technology %}<li>Agricultural Technology</li>{% endif %}
+                                    {% if faculty.smart_city_technologies %}<li>Smart City Technologies</li>{% endif %}
+                                    {% if faculty.fintech %}<li>Financial Technology (FinTech)</li>{% endif %}
+                                    {% if faculty.computer_networks %}<li>Computer Networks</li>{% endif %}
+                                    {% if faculty.software_engineering %}<li>Software Engineering</li>{% endif %}
+                                    {% if faculty.multimedia_graphics %}<li>Multimedia and Graphics</li>{% endif %}
+                                    {% if faculty.other_expertise %}
+                                        {% for expertise in faculty.other_expertise.splitlines %}
+                                            <li>{{ expertise }}</li>
+                                        {% endfor %}
+                                    {% endif %}
+                                </ul>
+                            </td>
+                            <td>{{ faculty.has_master_degree|yesno:"Yes,No" }}</td>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <a href="{% url 'update_faculty' faculty.pk %}" class="btn btn-primary btn-sm mt-1 mr-2">Update</a>
+                                    <a href="{% url 'disable_faculty' faculty.pk %}" class="btn btn-danger btn-sm mt-1">Disable</a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+       <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1" aria-label="First">
+                            <span aria-hidden="true">&laquo;&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+                {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                        <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                        <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Last">
+                            <span aria-hidden="true">&raquo;&raquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav> 
+        <a href="{% url 'admin_dashboard' %}" class="btn btn-secondary mt-3">Back</a>
+        <a href="{% url 'disabled_faculty_list' %}" class="btn btn-primary mt-3">View Faculty Disabled</a>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

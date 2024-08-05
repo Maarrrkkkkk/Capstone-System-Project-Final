@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Account Settings</title>
+    <!-- Include Bootstrap CSS for styling -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
+    <!-- Include SweetAlert CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css"
+    />
+  </head>
+  <body>
+    <div
+      class="container d-flex justify-content-center align-items-center"
+      style="min-height: 100vh"
+    >
+      <div class="card w-50">
+        <div class="card-body" style="border: 1px solid black">
+          <h1 class="card-title text-center">Account Settings</h1>
+          <form method="post" id="account-settings-form">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="id_last_name">Last Name</label>
+              {{ form.last_name }}
+            </div>
+            <div class="form-group">
+              <label for="id_email">First Name</label>
+              {{ form.first_name }}
+            </div>
+            <div class="form-group">
+              <label for="id_first_name">Middle Name</label>
+              {{ form.middle_name }}
+            </div>
+            <div class="form-group">
+              <label for="id_email">Email</label>
+              {{ form.email }}
+            </div>
+            {% comment %} <div class="form-group">
+                <label for="id_password1">Password</label>
+                {{ form.password1 }}
+              </div>
+              <div class="form-group">
+                <label for="id_password2">Confirm Password</label>
+                {{ form.password2 }}
+              </div> {% endcomment %}
+            <div class="btn-group d-flex justify-content-center">
+              <button type="submit" class="btn btn-primary mr-3">Save</button>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                onclick="window.location.href='{% url 'admin_dashboard' %}'"
+              >
+                Back
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <!-- Include SweetAlert JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+      document.getElementById("account-settings-form").onsubmit = function (
+        event
+      ) {
+        event.preventDefault();
+        fetch(this.action, {
+          method: "POST",
+          headers: {
+            "X-Requested-With": "XMLHttpRequest",
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: new URLSearchParams(new FormData(this)).toString(),
+        }).then((response) => {
+          if (response.ok) {
+            Swal.fire({
+              icon: "success",
+              title: "Success",
+              text: "Your account settings have been updated successfully.",
+            }).then(() => {
+              // Redirect to the same page
+              window.location.reload();
+            });
+          } else {
+            Swal.fire({
+              icon: "error",
+              title: "Error",
+              text: "There was an error updating your account settings.",
+            });
+          }
+        });
+      };
+    </script>
+  </body>
+</html>

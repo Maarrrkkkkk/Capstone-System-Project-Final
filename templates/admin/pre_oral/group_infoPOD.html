@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Group Info List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'admin/pre_oral/group_infoPOD.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+</head>
+<body>
+    <div class="container">
+        <h1 class="my-4">Pre-Oral Defense Group</h1>
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Capstone Teacher</th>
+                    <th>Section</th>
+                    <th>Members</th>
+                    <th>Adviser</th>
+                    <th>Title</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for group in groupsPOD %}
+                    <tr>
+                        <td>{{ group.capstone_teacher.name }}</td>
+                        <td>{{ group.section }}</td>
+                        <td>{{ group.member1 }}, {{ group.member2 }}, {{ group.member3 }}</td>
+                        <td>{{ group.adviser.name }}</td>
+                        <td>{{ group.title }}</td>
+                        <td>
+                            <div class="btn-group" role="group" aria-label="Action Buttons">
+                                <a href="{% url 'group_grades' group.id %}" class="btn btn-success btn-sm mr-3">View Grades</a>
+                                <a href="{% url 'update_groupPOD' group.id %}" class="btn btn-warning btn-sm mr-3">Update</a>
+                                <button class="btn btn-danger btn-sm" onclick="confirmDelete({{ group.id }})">Delete</button>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <br>
+        <button class="btn btn-secondary no-print" onclick="window.location.href='{% url 'admin_dashboard' %}'">Back</button>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function confirmDelete(groupId) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "{% url 'delete_groupPOD' 0 %}".replace('0', groupId);
+                }
+            })
+        }
+    </script>
+</body>
+</html>

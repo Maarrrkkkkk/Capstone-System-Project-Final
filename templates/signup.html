@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="{% static 'signup.css' %}" rel="stylesheet">
+    <style>
+      .custom-margin-top {
+        margin-top: 20rem;
+      }
+    </style>
+</head>
+<body class="d-flex align-items-center justify-content-center vh-100">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 custom-margin-top">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h2>Register</h2>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" action="{% url 'signup' %}">
+                            {% csrf_token %}
+                            <div class="form-group row">
+                                <label for="lastname" class="col-sm-4 col-form-label">User Name:</label>
+                                <div class="col-sm-8">
+                                    {{ form.username }}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="lastname" class="col-sm-4 col-form-label">Last Name:</label>
+                                <div class="col-sm-8">
+                                    {{ form.lastname }}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="firstname" class="col-sm-4 col-form-label">First Name:</label>
+                                <div class="col-sm-8">
+                                    {{ form.firstname }}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="middlename" class="col-sm-4 col-form-label">Middle Name:</label>
+                                <div class="col-sm-8">
+                                    {{ form.middlename }}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="email" class="col-sm-4 col-form-label">Email:</label>
+                                <div class="col-sm-8">
+                                    {{ form.email }}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="password1" class="col-sm-4 col-form-label">Password:</label>
+                                <div class="col-sm-8">
+                                    {{ form.password1 }}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="password2" class="col-sm-4 col-form-label">Confirm Password:</label>
+                                <div class="col-sm-8">
+                                    {{ form.password2 }}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-12 text-center">
+                                    <button type="submit" class="btn btn-primary">Register</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

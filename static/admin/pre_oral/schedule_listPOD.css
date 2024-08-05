@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    padding-top: 50px;
+    font-weight: 600;
+}
+
+
+
+/* Style for the buttons container */
+.buttons {
+    display: flex;
+    margin-bottom: 20px;
+    gap: 10px;
+    margin-left: 5%;
+}
+
+/* Style for the buttons */
+.buttons button {
+    padding: 10px 20px;
+    font-size: 15px;
+}
+
+/* Style for the table */
+table {
+    width: 90% !important; /* Ensure the width is applied */
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto; /* Center the table */
+}
+
+/* Style for the table headers */
+thead {
+    background-color: #007bff; /* Bootstrap primary blue color */
+    color: black;
+}
+
+/* Style for the table cells */
+td, th {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center; /* Center the text */
+}
+
+/* Style for the table rows */
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Style for the table rows on hover, excluding headers */
+tbody tr:hover {
+    background-color: #ddd;
+}
+
+/* Style for the page title */
+h1 {
+    margin-bottom: 20px;
+    text-align: center; /* Center the title */
+}
+
+/* Style for the section headers */
+h2.table-header {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    text-align: center; /* Center the section headers */
+    width: 50%; /* Match the table width */
+    margin-left: auto;
+    margin-right: auto; /* Center the header */
+}

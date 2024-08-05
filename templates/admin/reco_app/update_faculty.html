@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update Faculty</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'admin/reco_app/update_faculty.css' %}">
+</head>
+<body>
+    <div class="container mt-5 p-5">
+        <div class="container">
+            <h1 class="mb-4">Update Faculty</h1>
+            <form method="post" action="{% url 'update_faculty' faculty.pk %}">
+                {% csrf_token %}
+                {% load crispy_forms_tags %}
+                <div class="row">
+                    <div class="col-md-12">
+                        {{ form.name|as_crispy_field }}
+                        {{ form.years_of_teaching|as_crispy_field }}
+                        {{ form.has_master_degree|as_crispy_field }}
+                    </div>
+                </div>
+                <h3>Lists of Expertise</h3>
+                <div class="row">
+                    <div class="col-md-4">
+                        {{ form.mobile_web_dev|as_crispy_field }}
+                        {{ form.database_management|as_crispy_field }}
+                        {{ form.ai_ml|as_crispy_field }}
+                        {{ form.computer_networks|as_crispy_field }}
+                        {{ form.software_engineering|as_crispy_field }}
+                        {{ form.multimedia_graphics|as_crispy_field }}
+                    </div>
+                    <div class="col-md-4">
+                        {{ form.iot|as_crispy_field }}
+                        {{ form.cybersecurity|as_crispy_field }}
+                        {{ form.gis|as_crispy_field }}
+                        {{ form.data_analytics|as_crispy_field }}
+                        {{ form.ecommerce_digital_marketing|as_crispy_field }}
+                        {{ form.educational_technology|as_crispy_field }}
+                    </div>
+                    <div class="col-md-4">
+                        {{ form.healthcare_informatics|as_crispy_field }}
+                        {{ form.game_development|as_crispy_field }}
+                        {{ form.hci|as_crispy_field }}
+                        {{ form.agricultural_technology|as_crispy_field }}
+                        {{ form.smart_city_technologies|as_crispy_field }}
+                        {{ form.fintech|as_crispy_field }}
+                    </div>
+                </div>
+                {% comment %} <div class="row mt-3">
+                    <div class="col-md-12">
+                        <label for="id_other_expertise_checkbox">Others</label>
+                        {{ form.other_expertise_checkbox|as_crispy_field }}
+                        {{ form.other_expertise_text|as_crispy_field }}
+                    </div>
+                </div> {% endcomment %}
+                <button type="submit" class="btn btn-primary mt-3">Save</button>
+                <button type="button" class="btn btn-secondary mt-3" onclick="window.location.href='{% url 'faculty_list' %}'">Go to Faculty List</button>
+            </form>
+        </div>
+    </div>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

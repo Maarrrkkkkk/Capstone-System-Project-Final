@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #333;
+}
+
+.container {
+    margin-top: 20px;
+}
+
+.table {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Style for the table headers */
+thead {
+    background-color: #007bff; /* Bootstrap primary blue color */
+    color: black;
+}
+
+
+/* Pagination styling */
+.pagination {
+    margin-top: 20px;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.pagination .page-link {
+    color: #007bff;
+}
+
+.pagination .page-link:hover {
+    color: #0056b3;
+}
+
+.btn-secondary {
+    background-color: #007bff;
+    border: none;
+}
+
+.btn-secondary:hover {
+    background-color: #0056b3;
+}
