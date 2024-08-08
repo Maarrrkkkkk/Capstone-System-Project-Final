@@ -12,20 +12,26 @@ from users.views import (
 from users.admin_reco_app import views as reco_views
 from django.contrib.auth import views as auth_views
 from users.admin_scheduler_app import views as scheduler_views
+from users.panel_app import views as panel_views
+
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', home_view, name='home'),  # Home page URL pattern
+    path('panel/', include('users.panel_app.urls')),  # Include panel_app URLs
+    path('', home_view, name='base'),  # Home page URL pattern
     path('signup/', signup_view, name='signup'),  # Added register URL pattern
     path('login/', login_view, name='login'),
     path('logout/', logout_view, name='logout'),
     path('admin_dashboard/', admin_dashboard, name='admin_dashboard'),  # Ensure this pattern exists
-    path('faculty_dashboard/', faculty_dashboard, name='faculty_dashboard'),  # Add this line
+  
+    path('faculty_dashboard/', faculty_dashboard, name='faculty_dashboard'),
     path('account_settings/', account_settings, name='account_settings'),  # Add this line
     path('accounts/profile/', account_settings, name='profile'),  # Redirect profile to account_settings
 
     # Recommend adviser URL pattern
     path('recommend_adviser/', reco_views.recommend_adviser, name='recommend_adviser'),
+    
 
     # Faculty related URL patterns
     path('add_faculty/', reco_views.add_faculty, name='add_faculty'),
@@ -54,6 +60,7 @@ urlpatterns = [
     # Pre-oral defense schedule related URL patterns
     path('add_groupPOD/', scheduler_views.add_groupPOD, name='add_groupPOD'),
     path('groupsPOD/', scheduler_views.group_infoPOD, name='group_infoPOD'),
+    path('group_infoPOD/', scheduler_views.group_infoPOD, name='group_infoPOD'),
     path('group_grades/<int:group_id>/', scheduler_views.group_grades, name='group_grades'),
     path('schedule_listPOD/', scheduler_views.schedule_listPOD, name='schedule_listPOD'),
     path('group/list/', scheduler_views.group_infoPOD, name='group_listPOD'),
