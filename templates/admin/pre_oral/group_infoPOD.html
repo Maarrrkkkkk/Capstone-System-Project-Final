@@ -11,7 +11,7 @@
     <div class="container">
         <h1 class="my-4">Pre-Oral Defense Group</h1>
         <table class="table table-bordered table-striped">
-            <thead class="thead-dark">
+            <thead>
                 <tr>
                     <th>Capstone Teacher</th>
                     <th>Section</th>
@@ -26,7 +26,7 @@
                     <tr>
                         <td>{{ group.capstone_teacher.name }}</td>
                         <td>{{ group.section }}</td>
-                        <td>{{ group.member1 }}, {{ group.member2 }}, {{ group.member3 }}</td>
+                        <td>{{ group.member1 }}<br> {{ group.member2 }}<br> {{ group.member3 }}</td>
                         <td>{{ group.adviser.name }}</td>
                         <td>{{ group.title }}</td>
                         <td>
