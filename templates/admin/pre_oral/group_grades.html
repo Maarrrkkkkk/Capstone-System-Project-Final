@@ -1,9 +1,12 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
     <title>Group Grades</title>
     <!-- Bootstrap CSS -->
+    
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'admin/pre_oral/group_gradesPOD.css' %}" />
 </head>
 <body>
     <div class="container mt-4">
@@ -11,21 +14,25 @@
         <br>
         <h2>Title of the Study: {{ title }}</h2>
         <table class="table table-bordered">
-            <thead class="thead-dark">
+            <thead>
                 <tr>
                     <th>Proponent</th>
                     <th>Section</th>
                     <th>Computed Individual Grade</th>
-                    <th>Panel</th>
+                    <th>Panelist</th>
                 </tr>
             </thead>
             <tbody>
-                {% for member in members %}
+                {% for info in members %}
                 <tr>
-                    <td>{{ member }}</td>
+                    <td>{{ info.member }}</td>
                     <td>{{ section }}</td>
-                    <td>{{ member.computed_individual_grade }}</td>
-                    <td>{{ member.panel }}</td>
+                    <td>{{ info.member.computed_individual_grade }}</td>
+                    <td>
+                        {{ info.faculty1 }}<br>
+                        {{ info.faculty2 }}<br>
+                        {{ info.faculty3 }}
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -43,5 +50,5 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
-</html>>
+</html>
 </html>
