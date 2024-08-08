@@ -3,36 +3,7 @@
 <html>
 <head>
     <title>Recommendation Result</title>
-    
     <link rel="stylesheet" type="text/css" href="{% static 'admin/reco_app/recommendation.css' %}">
-    <script>
-        function printAndSave() {
-            // Trigger the print dialog
-            window.print();
-
-            // After printing, send the data to the server to save the top adviser
-            var topAdviserId = "{{ top_adviser_id }}";
-            var title = "{{ title }}";
-
-            fetch('/add_adviser/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': '{{ csrf_token }}'
-                },
-                body: JSON.stringify({ 'faculty_id': topAdviserId, 'title': title })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === 'success') {
-                    alert('Top adviser successfully added to the database.');
-                } else {
-                    alert('There was an error adding the top adviser to the database.');
-                }
-            })
-            .catch(error => console.error('Error:', error));
-        }
-    </script>
 </head>
 <body>
     <div class="container">
@@ -43,12 +14,21 @@
             </script>
         {% else %}
             <h1>Approved Title <br><h3>{{ title }}</h3></h1>
+            <h2>Needed Expertise</h2>
+            <p>{{ needed_expertise }}</p>
             <h2>Recommended Adviser</h2>
             <ol>
                 {% for adviser in top_advisers %}
                     <li>{{ adviser.name }}</li>
                 {% endfor %}
             </ol>
+
+            <h2>All Matching Faculty</h2>
+            <ul>
+                {% for faculty in all_matching_faculty %}
+                    <li>{{ faculty.name }}</li>
+                {% endfor %}
+            </ul>
 
             <!-- Form to submit additional data -->
             <form class="center-form">
