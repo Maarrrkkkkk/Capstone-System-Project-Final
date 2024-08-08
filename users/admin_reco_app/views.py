@@ -1,14 +1,15 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from .models import Faculty, Adviser
-from .utils import get_expertise_descriptions, find_top_n_advisers
+from users.admin_reco_app.models import Faculty, Adviser
 from .forms import FacultyForm, AdviserForm
 from django.core.paginator import Paginator
 import json
+from users.admin_reco_app.utils import get_needed_expertise_for_title, find_top_n_advisers
+
 
 def home(request):
-    return render(request, 'home.html')
+    return render(request, 'base.html')
 
 def add_faculty(request):
     if request.method == 'POST':
@@ -24,11 +25,8 @@ def add_faculty(request):
     return render(request, 'admin/reco_app/add_faculty.html', {'form': form})
 
 def disabled_faculty_list(request):
-    # Filter faculty members who are not active
     disabled_faculty = Faculty.objects.filter(is_active=False)
-    
-    # Paginate the results
-    paginator = Paginator(disabled_faculty, 5)  # Show 10 faculty members per page
+    paginator = Paginator(disabled_faculty, 10)  # Show 10 disabled faculty per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     
@@ -73,6 +71,8 @@ def faculty_detail(request, id):
     faculty = get_object_or_404(Faculty, id=id)
     return render(request, 'admin/reco_app/faculty_detail.html', {'faculty': faculty})
 
+
+
 def recommend_adviser(request):
     if request.method == 'POST':
         title = request.POST.get('title')
@@ -84,7 +84,7 @@ def recommend_adviser(request):
             })
 
         # Find top 3 eligible advisers based on expertise and availability
-        top_advisers = find_top_n_advisers(title, n=3)
+        top_advisers, all_matching_faculty = find_top_n_advisers(title, top_n=3, max_matches=10)
 
         if not top_advisers:
             return render(request, 'admin/reco_app/recommendation.html', {
@@ -95,10 +95,15 @@ def recommend_adviser(request):
         top_adviser = top_advisers[0]
         Adviser.objects.create(faculty=top_adviser, approved_title=title)
 
+        # Get the needed expertise for the title
+        needed_expertise = get_needed_expertise_for_title(title)
+
         context = {
             'title': title,
             'top_advisers': top_advisers,
+            'all_matching_faculty': all_matching_faculty,
             'top_adviser_id': top_adviser.id if top_adviser else None,
+            'needed_expertise': needed_expertise,
         }
         return render(request, 'admin/reco_app/recommendation.html', context)
 
