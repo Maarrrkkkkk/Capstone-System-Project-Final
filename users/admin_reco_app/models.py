@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Faculty(models.Model):
     name = models.CharField(max_length=100)
     years_of_teaching = models.IntegerField()
@@ -25,13 +26,12 @@ class Faculty(models.Model):
     is_active = models.BooleanField(default=True)
     expertise = models.TextField(blank=True, null=True)
    
-
     def __str__(self):
         return self.name
 
 class Adviser(models.Model):
     faculty = models.ForeignKey(Faculty, on_delete=models.CASCADE)
     approved_title = models.CharField(max_length=255)
-    
+
     def __str__(self):
-        return f'{self.faculty.name} - {self.approved_title}'
+        return f"{self.faculty.name} - {self.approved_title}"
