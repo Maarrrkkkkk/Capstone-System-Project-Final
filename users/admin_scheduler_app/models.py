@@ -55,4 +55,3 @@ class SchedulePOD(models.Model):
             return f"LUNCH BREAK - {self.slot} on {self.date} in {self.room}"
         return f"{self.group} - {self.slot} on {self.date} in {self.room}"
 
-
