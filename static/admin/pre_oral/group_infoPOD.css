@@ -7,30 +7,18 @@ body {
     margin: 0;
     padding: 0;
     padding-top: 50px;
-    font-weight: 600;
 }
 
-
-
-/* Style for the buttons container */
-.buttons {
-    display: flex;
-    margin-bottom: 20px;
-    gap: 10px;
-    margin-left: 5%;
-}
-
-/* Style for the buttons */
-.buttons button {
-    padding: 10px 20px;
-    font-size: 16px;
+h1 {
+    text-align: center;
 }
 
 /* Style for the table */
 table {
-    width: 90%; 
     border-collapse: collapse;
-    margin: 0 auto 20px auto;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto; /* Center the table */
 }
 
 /* Style for the table headers */
@@ -55,10 +43,3 @@ tr:nth-child(even) {
 tbody tr:hover {
     background-color: #ddd;
 }
-
-/* Style for the page title */
-h1 {
-    margin-bottom: 20px;
-    margin-left: 5%;
-}
-
