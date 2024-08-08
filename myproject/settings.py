@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap4',
     'widget_tweaks',
-    'users.admin_scheduler_app', 
+    
 ]
 
 MIDDLEWARE = [
