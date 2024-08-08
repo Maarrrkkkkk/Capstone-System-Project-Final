@@ -1,44 +1,37 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Recommend Adviser</title>
     <link rel="stylesheet" href="{% static 'admin/reco_app/recommend_adviser.css' %}" />
-  </head>
-  <body>
+</head>
+<body>
     <div class="custom-container">
-      <h1>Find Adviser</h1>
-      <form method="post">
-        {% csrf_token %}
-        <div class="form-group">
-          <textarea
-            id="title"
-            name="title"
-            class="custom-textarea"
-            rows="4"
-            placeholder="Type your title here..."
-            required
-          ></textarea>
-        </div>
+        <h1>Find Adviser</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <textarea
+                    id="title"
+                    name="title"
+                    class="custom-textarea"
+                    rows="4"
+                    placeholder="Type your title here..."
+                    required
+                ></textarea>
+            </div>
+            <div class="btn-group">
+                <a href="{% url 'admin_dashboard' %}" class="custom-btn">Back</a>
+                <button type="submit" class="custom-button">Recommend Adviser</button>
+            </div>
+        </form>
+        <hr class="custom-hr" />
+        <!-- Navigation buttons -->
         <div class="btn-group">
-        <a href="{% url 'admin_dashboard' %}" class="custom-btn">Back</a>
-        <button type="submit" class="custom-button">Recommend Adviser</button>
-      </div>
-      </form>
-
-      <hr class="custom-hr" />
-
-     
-      <!-- Navigation buttons -->
-      <div class="btn-group">
-        {% comment %} <a href="{% url 'add_faculty' %}" class="custom-btn">Add Faculty</a>
-        <a href="{% url 'faculty_list' %}" class="custom-btn">Faculty List</a>
-        <a href="{% url 'adviser_list' %}" class="custom-btn">Adviser List</a>
-        <a href="{% url 'disabled_faculty_list' %}" class="custom-btn"
-          >Disabled Faculty</a> {% endcomment %}
-      </div>
+            <!-- Add your navigation buttons here -->
+        </div>
     </div>
-  </body>
+</body>
 </html>
