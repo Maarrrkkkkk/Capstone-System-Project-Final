@@ -178,8 +178,21 @@ def group_infoPOD(request):
 
 def group_grades(request, group_id):
     group = get_object_or_404(GroupInfoPOD, id=group_id)
+    members = [group.member1, group.member2, group.member3]
+    
+    # Collect faculty information for each member's schedule
+    faculty_info = []
+    for member in members:
+        schedule = SchedulePOD.objects.filter(group=group).first()  # Assuming each group has one schedule
+        faculty_info.append({
+            'member': member,
+            'faculty1': schedule.faculty1.name if schedule else 'N/A',
+            'faculty2': schedule.faculty2.name if schedule else 'N/A',
+            'faculty3': schedule.faculty3.name if schedule else 'N/A',
+        })
+    
     context = {
-        'members': [group.member1, group.member2, group.member3],
+        'members': faculty_info,
         'section': group.section,
     }
     return render(request, 'admin/pre_oral/group_grades.html', context)
